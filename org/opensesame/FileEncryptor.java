@@ -1,5 +1,6 @@
 package org.opensesame;
 
+import java.io.FileWriter;
 import org.jasypt.util.text.BasicTextEncryptor;
 import java.io.File;
 import java.io.IOException;
@@ -33,10 +34,21 @@ public class FileEncryptor {
 	}
 
 	private File writeFile( String fileContents, String fileName ) throws IOException {
-
-		// TODO write a file whose contents are fileContents and name is fileName
-		System.out.println("Writing contents " +  fileContents  + " to  file: " + fileName);
+		         File file = new File();
+				 System.out.println("Enter the name of the file", + file);
+				       file.createNewFile();
+				         FileWriter writer = new FileWriter(file); 
+					         writer.write(data.getBytes(), 0, data.length()); 
+			      	       writer.flush();
+						         writer.close();
+	   						         FileReader fr = new FileReader(file); 
+								       char [] a = new char[50];
+								         fr.read(a); // reads the content to the array
+									       for(char c : a)
+								             System.out.print(c); //prints the characters one by one
+	          							       fr.close();
 		return null;
 	}
 
 }
+
