@@ -5,6 +5,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import java.io.File;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.lang.StringBuffer;
 
@@ -34,20 +35,22 @@ public class FileEncryptor {
 	}
 
 	private File writeFile( String fileContents, String fileName ) throws IOException {
-		         File file = new File();
-				 System.out.println("Enter the name of the file", + file);
-				       file.createNewFile();
-				         FileWriter writer = new FileWriter(file); 
-					         writer.write(data.getBytes(), 0, data.length()); 
-			      	       writer.flush();
-						         writer.close();
-	   						         FileReader fr = new FileReader(file); 
-								       char [] a = new char[50];
-								         fr.read(a); // reads the content to the array
-									       for(char c : a)
-								             System.out.print(c); //prints the characters one by one
-	          							       fr.close();
-		return null;
+		File file = new File(fileName);
+  		file.createNewFile();
+		BufferedWriter writer = null;
+		try {
+    			writer = new BufferedWriter( new FileWriter(file));
+    			writer.write(fileContents);
+
+		} catch ( IOException e) {
+		} finally {
+    			try {
+        			if ( writer != null)
+        				writer.close( );
+    			} catch ( IOException e) {
+    			}
+		}		
+		return file;
 	}
 
 }
